@@ -28,4 +28,4 @@ jobs:
           path: colcon_ws/src/traffic_editor
       - run: pip3 install jinja2
       - run: /entrypoint.sh bash -c "cd $GITHUB_WORKSPACE/colcon_ws && colcon build --packages-up-to romi-js-core-interfaces"
-      - run: /entrypoint.sh bash -c ". $GITHUB_WORKSPACE/colcon_ws/build/install/setup.bash && cd $GITHUB_WORKSPACE/colcon_ws/src/romi-js-core-interfaces && npm publish --dry-run"
+      - run: /entrypoint.sh bash -c ". $GITHUB_WORKSPACE/colcon_ws/install/setup.bash && cd $GITHUB_WORKSPACE/colcon_ws/src/romi-js-core-interfaces && npm publish --dry-run"
