@@ -27,12 +27,5 @@ jobs:
           repository: osrf/traffic_editor
           path: colcon_ws/src/traffic_editor
       - run: pip3 install jinja2
-      - run: bash -c ". /opt/ros/eloquent/setup.bash && cd $GITHUB_WORKSPACE/colcon_ws && colcon build --packages-up-to romi-js-core-interfaces"
-
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - run: npm publish --dry-run
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - run: /entrypoint.sh cd $GITHUB_WORKSPACE/colcon_ws && colcon build --packages-up-to romi-js-core-interfaces
+      - run: /entrypoint.sh . $GITHUB_WORKSPACE/colcon_ws/build/install/setup.bash && cd $GITHUB_WORKSPACE/colcon_ws/src/romi-js-core-interfaces && npm publish --dry-run
