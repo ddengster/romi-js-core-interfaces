@@ -12,6 +12,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: koonpeng/romi-js
+      volumes:
+        - ${{github.workspace}}/colcon_ws:/colcon_ws
     steps:
       - uses: actions/checkout@v2
         with:
@@ -24,38 +28,16 @@ jobs:
         with:
           repository: osrf/traffic_editor
           path: colcon_ws/src
-
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm ci
-      - run: npm test
+      - run: pip3 install jinja2
+      - run: cd ${{github.workspace}}/colcon_ws && colcon build --packages-up-to romi-js-core-interfaces
 
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
+      - run: npm publish --dry-run
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-          scope: '@your-github-username'
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
