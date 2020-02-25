@@ -3,3 +3,4 @@
 /lib/core-msgs/
 /coverage/
 /.nyc_output/
+/build/
