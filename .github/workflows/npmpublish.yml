@@ -14,8 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: koonpeng/romi-js
-      volumes:
-        - ${{github.workspace}}/colcon_ws:/colcon_ws
     steps:
       - uses: actions/checkout@v2
         with:
