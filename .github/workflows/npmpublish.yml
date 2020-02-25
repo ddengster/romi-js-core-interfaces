@@ -27,7 +27,7 @@ jobs:
           repository: osrf/traffic_editor
           path: colcon_ws/src
       - run: pip3 install jinja2
-      - run: cd ${{env.GITHUB_WORKSPACE}}/colcon_ws && colcon build --packages-up-to romi-js-core-interfaces
+      - run: cd $GITHUB_WORKSPACE/colcon_ws && ls -l && ls -l src/ && colcon build --packages-up-to romi-js-core-interfaces
 
   publish-npm:
     needs: build
