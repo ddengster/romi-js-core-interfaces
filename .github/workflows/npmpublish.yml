@@ -17,15 +17,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          path: colcon_ws/src
+          path: colcon_ws/src/romi-js-core-interfaces
       - uses: actions/checkout@v2
         with:
           repository: osrf/rmf_core
-          path: colcon_ws/src
+          path: colcon_ws/src/rmf_core
       - uses: actions/checkout@v2
         with:
           repository: osrf/traffic_editor
-          path: colcon_ws/src
+          path: colcon_ws/src/traffic_editor
       - run: pip3 install jinja2
       - run: cd $GITHUB_WORKSPACE/colcon_ws && ls -l && ls -l src/ && colcon build --packages-up-to romi-js-core-interfaces
 
